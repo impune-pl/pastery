@@ -56,6 +56,17 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <!--Vaadin tabs component-->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-tabs-flow</artifactId>
+		</dependency>
+        <!--Vaadin iron-form required for LoginView to work with spring security-->
+		<dependency>
+			<groupId>org.webjars.bowergithub.polymerelements</groupId>
+			<artifactId>iron-form</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
