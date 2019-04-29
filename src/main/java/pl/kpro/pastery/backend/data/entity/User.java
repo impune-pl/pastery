@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,8 @@ import java.util.List;
  * @author Krzysztof 'impune_pl' Prorok
  */
 @Entity
-public class User
+public class User extends AbstractEntity
 {
-    @Id // unique id for
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     @NotBlank // must contain at least one non-whitespace character and not be null
     private String username;
@@ -46,29 +42,23 @@ public class User
     @Size(min = 4, max = 255)
     private String passwordHash;
 
-    //TODO: rethink putting roles in dedicated table, and using relation instead of string.
-    @NotBlank
+    //TODO: put roles in dedicated table, and use list instead of enum.
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @NotBlank
     @Column(updatable = false)
     private OffsetDateTime creationDate;
+
+//    @NotBlank
+//    private String activationCode;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Paste> pastes;
 
     public User()
     {
         this.creationDate = OffsetDateTime.now();
         this.pastes=new ArrayList<>();
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
     }
 
     public String getUsername()
@@ -141,6 +131,14 @@ public class User
         this.pastes = pastes;
     }
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Paste> pastes;
+
+//    public String getActivationCode()
+//    {
+//        return activationCode;
+//    }
+//
+//    public void setActivationCode(String activationCode)
+//    {
+//        this.activationCode = activationCode;
+//    }
 }

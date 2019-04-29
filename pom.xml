@@ -61,7 +61,7 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-tabs-flow</artifactId>
 		</dependency>
-        <!--Vaadin iron-form required for LoginView to work with spring security-->
+        <!--Vaadin iron-form required for LoginAndRegistrationView to work with spring security-->
 		<dependency>
 			<groupId>org.webjars.bowergithub.polymerelements</groupId>
 			<artifactId>iron-form</artifactId>

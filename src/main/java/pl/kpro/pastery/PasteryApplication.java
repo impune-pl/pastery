@@ -7,11 +7,19 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import pl.kpro.pastery.app.security.SecurityConfig;
+import pl.kpro.pastery.backend.data.service.UserService;
+import pl.kpro.pastery.ui.MainView;
 
-@SpringBootApplication
+//@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = { SecurityConfig.class, MainView.class, PasteryApplication.class,
+		UserService.class }, exclude = ErrorMvcAutoConfiguration.class)
+@ComponentScan(basePackages="pl.kpro.pastery")
 public class PasteryApplication
 {
 	//Automatically obtained from application.properties

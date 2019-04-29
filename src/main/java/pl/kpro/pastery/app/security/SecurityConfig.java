@@ -46,8 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         super.configure(auth);
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
@@ -61,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .regexMatchers("/admin/.*").hasAuthority(Role.ADMIN.name())
                     .and().formLogin().loginPage("/login").permitAll().loginProcessingUrl("/login")
                                                                       .failureUrl("/login/error")
-                                                                      .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+                                                                      .successForwardUrl("/")
+                                                                      //.successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
                     .and().logout().logoutSuccessUrl("/")
                 .and()
                     .requiresChannel()

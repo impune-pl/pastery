@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.kpro.pastery.backend.data.entity.User;
-import pl.kpro.pastery.backend.repositories.UserRepository;
+import pl.kpro.pastery.backend.data.repositories.UserRepository;
 
 import java.util.Collections;
 
@@ -20,18 +20,13 @@ import java.util.Collections;
 @Primary //Preferred choice when multiple possibilities exist for @Autowired to choose from
 public class CustomUserDetailsService implements UserDetailsService
 {
-    private final UserRepository userRepository;
-
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository)
-    {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        User user = userRepository.findByEmailIgnoreCase(username);
+        User user = userRepository.findByEmailIgnoreCase(username).orElse(null);
         if(user == null)
         {
             throw new UsernameNotFoundException("No user found with email: "+username);

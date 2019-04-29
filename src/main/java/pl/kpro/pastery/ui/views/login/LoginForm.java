@@ -9,8 +9,10 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.dom.Element;
 
 /**
- * Login form for LoginView
+ * Login form for LoginAndRegistrationView
  * TODO: add remember me functionality
+ *
+ * TODO: important: for some reason when logged in user enters page, gets error message.
  * @author Krzysztof 'impune_pl' Prorok <Krzysztof1397@gmail.com>
  */
 class LoginForm extends FormLayout
