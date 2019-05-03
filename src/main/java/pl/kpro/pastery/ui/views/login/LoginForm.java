@@ -27,8 +27,10 @@ class LoginForm extends FormLayout
     public LoginForm()
     {
         emailField = new EmailField("E-mail");
+        emailField.getElement().setAttribute("name","username");
 
         passwordField = new PasswordField("Password");
+        passwordField.getElement().setAttribute("name","password");
 
         applyButton = new Button("Log in");
         applyButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -59,7 +61,7 @@ class LoginForm extends FormLayout
 
         formElement = new Element("form");
         formElement.setAttribute("method", "post");
-        formElement.setAttribute("action", "login");
+        formElement.setAttribute("action", "/login");
         formElement.appendChild(this.getElement());
 
         ironForm = new Element("iron-form");

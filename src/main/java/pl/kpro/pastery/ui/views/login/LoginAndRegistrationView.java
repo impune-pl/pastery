@@ -15,6 +15,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.OptionalParameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.kpro.pastery.backend.data.service.UserService;
 
@@ -33,6 +35,7 @@ import java.util.stream.Stream;
 @PageTitle("Login")
 @HtmlImport("frontend://bower_components/iron-form/iron-form.html")
 @Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LoginAndRegistrationView extends FlexLayout implements HasUrlParameter<String>
 {
     private final UserService userService;
