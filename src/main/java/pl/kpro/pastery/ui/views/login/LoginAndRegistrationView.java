@@ -15,9 +15,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.OptionalParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import pl.kpro.pastery.backend.data.service.UserService;
 
 import java.util.HashMap;
@@ -34,13 +31,12 @@ import java.util.stream.Stream;
 @Route("login")
 @PageTitle("Login")
 @HtmlImport("frontend://bower_components/iron-form/iron-form.html")
-@Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LoginAndRegistrationView extends FlexLayout implements HasUrlParameter<String>
 {
     private final UserService userService;
 
     //If wrong password or e-mail have been provided (spring security will redirect user to /login/error), display error popup
+    //TODO: replace popup with banner above tabs
     @Override
     public void setParameter(BeforeEvent event, @OptionalParameter String parameter)
     {
@@ -67,6 +63,7 @@ public class LoginAndRegistrationView extends FlexLayout implements HasUrlParame
             dialog.open();
         }
     }
+
     @Autowired
     public LoginAndRegistrationView(UserService userService)
     {
