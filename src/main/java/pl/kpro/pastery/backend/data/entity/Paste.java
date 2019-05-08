@@ -9,13 +9,9 @@ import java.time.ZonedDateTime;
  * @author Krzysztof 'impune_pl' Prorok <Krzysztof1397@gmail.com>
  */
 
-@Entity
-public class Paste
+@Entity(name="Pastes")
+public class Paste extends AbstractEntity
 {
-    @Id
-    @GeneratedValue
-    private Long id;
-
     @NotBlank
     private String title;
 

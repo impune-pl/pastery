@@ -22,7 +22,7 @@ import java.util.List;
  * - list of pasted created by user
  * @author Krzysztof 'impune_pl' Prorok
  */
-@Entity
+@Entity(name="Users")
 public class User extends AbstractEntity
 {
 
