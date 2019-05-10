@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.time.OffsetDateTime;
 
 /**
+ * User data transfer object, needed to use binder for binding with registration form.
  * @author Krzysztof 'impune_pl' Prorok <Krzysztof1397@gmail.com>
  */
 public class UserDto
