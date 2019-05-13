@@ -7,6 +7,7 @@ import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.kpro.pastery.app.security.CurrentUser;
 import pl.kpro.pastery.backend.data.entity.Paste;
 import pl.kpro.pastery.backend.data.entity.User;
 import pl.kpro.pastery.backend.data.service.PasteService;
@@ -21,22 +22,20 @@ import java.util.stream.Collectors;
  * @author Krzysztof 'impune_pl' Prorok
  */
 
-@Route("/user/pastes/list")
+@Route("user/pastes/list")
 @PageTitle("Pastery")
 public class PasteListing extends FlexLayout
 {
-
-    //@Autowired
     PasteService pasteService;
 
     //TODO: check if it's valid way to load user
     //TODO: what if user is not logged in? -- security?
-    //@Autowired
-    User currentUser;
+    private User currentUser;
 
     @Autowired
-    public PasteListing(PasteService pasteService)
+    public PasteListing(PasteService pasteService, CurrentUser currentUser)
     {
+        this.currentUser=currentUser.getUser();
         this.pasteService=pasteService;
         this.setAlignItems(Alignment.CENTER);
         this.setWidthFull();
@@ -52,9 +51,9 @@ public class PasteListing extends FlexLayout
                                     sort->sort.getSorted(),
                                     sort->sort.getDirection() == SortDirection.ASCENDING)
                             );
-                    return pasteService.findAllBetweenAndSortedBy(query.getOffset(), query.getLimit(), sortOrder, currentUser).stream();
+                    return pasteService.findAllBetweenAndSortedBy(query.getOffset(), query.getLimit(), sortOrder, this.currentUser).stream();
                 },
-                query -> pasteService.countLoadable(currentUser)
+                query -> pasteService.countLoadable(this.currentUser)
         ));
     }
 }
