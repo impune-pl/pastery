@@ -26,38 +26,6 @@ import java.util.stream.Collectors;
 @PageTitle("Pastery")
 public class MainView extends FlexLayout
 {
-    //@Autowired
-    PasteService pasteService;
-
-    //TODO: check if it's valid way to load user
-    //TODO: what if user is not logged in? -- security?
-    //@Autowired
-    User currentUser;
-
-    @Autowired
-    public MainView(PasteService pasteService)
-    {
-        this.pasteService=pasteService;
-        this.setAlignItems(Alignment.CENTER);
-        this.setWidthFull();
-        this.setJustifyContentMode(JustifyContentMode.CENTER);
-        this.getStyle().set("flex-direction","column");
-
-        Grid<Paste> pastesGrid = new Grid<>(Paste.class);
-        pastesGrid.setDataProvider( DataProvider.fromCallbacks(
-                query ->
-                {
-                    Map<String, Boolean> sortOrder = query.getSortOrders().stream()
-                            .collect(Collectors.toMap(
-                                    sort->sort.getSorted(),
-                                    sort->sort.getDirection() == SortDirection.ASCENDING)
-                            );
-                    return pasteService.findAllBetweenAndSortedBy(query.getOffset(), query.getLimit(), sortOrder, currentUser).stream();
-                },
-                query -> pasteService.countLoadable(currentUser)
-        ));
-    }
-
 
 }
 
