@@ -1,11 +1,11 @@
 package pl.kpro.pastery.backend.data.service;
 
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import pl.kpro.pastery.backend.data.Role;
 import pl.kpro.pastery.backend.data.entity.Paste;
 import pl.kpro.pastery.backend.data.entity.User;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 /**
  * @author Krzysztof 'impune_pl' Prorok <Krzysztof1397@gmail.com>
  */
+@Service
 public class PasteService implements LazyLoadableFiltrableCrudService<Paste>
 {
     @Autowired
@@ -72,7 +73,7 @@ public class PasteService implements LazyLoadableFiltrableCrudService<Paste>
         {
             String repositoryFilter = "%" + filter.get() + "%";
             return getRepository()
-                    .findByTitleIgnoreCase(repositoryFilter);
+                    .findByTitleIgnoreCase(repositoryFilter, PageRequest.of(0,Integer.MAX_VALUE));
         }
         return find(pageable);
     }
@@ -104,14 +105,14 @@ public class PasteService implements LazyLoadableFiltrableCrudService<Paste>
 
     public Page<Paste> findAnyOwnedBy(User currentUser)
     {
-        return getRepository().findByAuthorIgnoreCase(currentUser);
+        return getRepository().findByAuthor(currentUser, PageRequest.of(0,Integer.MAX_VALUE));
     }
 
     @Override
     public Integer countLoadable(User currentUser)
     {
         if(currentUser != null)
-            return Math.toIntExact(getRepository().countByAuthorIgnoreCase(currentUser));
+            return Math.toIntExact(getRepository().countByAuthor(currentUser));
         else
             return 0;
     }
@@ -119,6 +120,13 @@ public class PasteService implements LazyLoadableFiltrableCrudService<Paste>
     @Override
     public List<Paste> findAllBetweenAndSortedBy(int offset, int limit, Map<String,Boolean> sortOrders, User currentUser)
     {
-        //TODO: implement
+        int page = offset/limit;
+        List<Sort.Order> orders = sortOrders.entrySet().stream()
+                .map(e -> new Sort.Order(e.getValue() ? Sort.Direction.ASC : Sort.Direction.DESC, e.getKey()))
+                .collect(Collectors.toList());
+        List<Paste> items  = getRepository()
+                .findByAuthor(currentUser,PageRequest.of(page,limit,orders.isEmpty() ? null : Sort.by(orders)))
+                .getContent();
+        return items.subList(offset%limit,items.size());
     }
 }

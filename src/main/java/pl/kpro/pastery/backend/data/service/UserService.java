@@ -26,11 +26,6 @@ public class UserService implements FilterableCrudService<User>
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    //@Autowired
-    //public UserService(UserRepository userRepository)
-//    {
-//        this.userRepository=userRepository;
-//    }
 
     @Override
     public UserRepository getRepository()

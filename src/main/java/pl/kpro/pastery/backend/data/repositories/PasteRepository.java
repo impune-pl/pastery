@@ -13,11 +13,11 @@ import pl.kpro.pastery.backend.data.entity.User;
 @Repository
 public interface PasteRepository extends JpaRepository<Paste,Long>
 {
-    Page<Paste> findByTitleIgnoreCase(String titleLike);
+    Page<Paste> findByTitleIgnoreCase(String titleLike, Pageable pageable);
 
-    Page<Paste> findByAuthorIgnoreCase(User author);
+    Page<Paste> findByAuthor(User author, Pageable pageable);
 
-    long countByAuthorIgnoreCase(User author);
+    long countByAuthor(User author);
 
     long countByTitleIgnoreCase(String titleLike);
 
