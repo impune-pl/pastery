@@ -16,7 +16,6 @@ import pl.kpro.pastery.app.security.SecurityConfig;
 import pl.kpro.pastery.backend.data.service.UserService;
 import pl.kpro.pastery.ui.MainView;
 
-//@SpringBootApplication
 @SpringBootApplication(scanBasePackageClasses = { SecurityConfig.class, MainView.class, PasteryApplication.class,
 		UserService.class }, exclude = ErrorMvcAutoConfiguration.class)
 @ComponentScan(basePackages="pl.kpro.pastery")

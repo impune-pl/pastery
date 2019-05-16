@@ -1,5 +1,10 @@
 package pl.kpro.pastery.backend.data;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Defines static roles for users
  * TODO: replace with dynamic roles stored in database
@@ -8,6 +13,7 @@ package pl.kpro.pastery.backend.data;
 public enum Role
 {
     ADMIN, USER;
+
     public static String USER()
     {
         return USER.name();
@@ -17,6 +23,7 @@ public enum Role
     {
         return ADMIN.name();
     }
+
     public static String[] getAllRoles()
     {
         return new String[] {ADMIN.name(), USER.name()};
