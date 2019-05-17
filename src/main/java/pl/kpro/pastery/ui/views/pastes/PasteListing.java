@@ -9,7 +9,10 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import pl.kpro.pastery.app.security.CurrentUser;
+import pl.kpro.pastery.backend.data.Role;
 import pl.kpro.pastery.backend.data.entity.Paste;
 import pl.kpro.pastery.backend.data.entity.User;
 import pl.kpro.pastery.backend.data.service.PasteService;
@@ -26,12 +29,11 @@ import java.util.stream.Collectors;
 
 @Route("user/pastes/list")
 @PageTitle("Pastery")
+@Secured("USER")
 public class PasteListing extends FlexLayout
 {
     PasteService pasteService;
 
-    //TODO: check if it's valid way to load user
-    //TODO: what if user is not logged in? -- security?
     private User currentUser;
 
     @Autowired
