@@ -1,9 +1,11 @@
 package pl.kpro.pastery.ui.views.pastes;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.SortDirection;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +57,28 @@ public class PasteListing extends FlexLayout
                 },
                 query -> pasteService.countLoadable(this.currentUser)
         ));
+
+        pastesGrid.removeColumnByKey("author");
+        pastesGrid.removeColumnByKey("id");
+        pastesGrid.removeColumnByKey("version");
+        pastesGrid.removeColumnByKey("content");
+
+        pastesGrid.setColumns("title","creationDate");
+        pastesGrid.setColumnReorderingAllowed(false);
+
+        pastesGrid.addColumn(new ComponentRenderer<>(
+                paste -> new Button("Update",
+                                        event -> {
+                                            edit(paste);
+                                            pastesGrid.getDataProvider().refreshItem(paste);
+                                        })
+        )).setHeader("Actions");
+
+        this.add(pastesGrid);
+    }
+
+    private void edit( Paste paste)
+    {
+
     }
 }
