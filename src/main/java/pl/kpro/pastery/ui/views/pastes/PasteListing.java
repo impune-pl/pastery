@@ -57,6 +57,15 @@ public class PasteListing extends FlexLayout
                 query -> pasteService.countLoadable(this.currentUser)
         ));
 
+        pastesGrid.removeColumnByKey("author");
+        pastesGrid.removeColumnByKey("id");
+        pastesGrid.removeColumnByKey("version");
+        pastesGrid.removeColumnByKey("content");
+
+        pastesGrid.setColumns("title","creationDate");
+        pastesGrid.setColumnReorderingAllowed(false);
+
+
         pastesGrid.addComponentColumn(item -> createEditButton(pastesGrid, item));
         pastesGrid.addComponentColumn(item -> createDeleteButton(pastesGrid, item));
         // TODO: create some kind of sharing system
@@ -72,5 +81,5 @@ public class PasteListing extends FlexLayout
     private Button createEditButton(Grid<Paste> pastesGrid, Paste item)
     {
         //TODO: return button that shows editor popup
-    }
+
 }
