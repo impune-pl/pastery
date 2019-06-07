@@ -118,7 +118,8 @@ public class PasteService implements LazyLoadableFiltrableCrudService<Paste>
     }
 
     @Override
-    public List<Paste> findAllBetweenAndSortedBy(int offset, int limit, Map<String,Boolean> sortOrders, User currentUser)
+    public List<Paste> findAllBetweenAndSortedByAndOwnedBy(int offset, int limit, Map<String, Boolean> sortOrders,
+                    User currentUser)
     {
         int page = offset/limit;
         List<Sort.Order> orders = sortOrders.entrySet().stream()

@@ -11,7 +11,8 @@ import java.util.Optional;
  */
 public interface FilterableCrudService<T extends AbstractEntity> extends CrudService<T>
 {
-    public Page<T> findAnyMatching(Optional<String> filter, Pageable pageable);
 
-    public long countAnyMatching(Optional<String> filter);
+    Page<T> findAnyMatching(Optional<String> filter, Pageable pageable);
+
+    long countAnyMatching(Optional<String> filter);
 }

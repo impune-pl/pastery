@@ -11,7 +11,9 @@ import java.util.Map;
  */
 public interface LazyLoadableFiltrableCrudService<T extends AbstractEntity> extends FilterableCrudService<T>
 {
-    public Integer countLoadable(User currentUser);
 
-    public List<T> findAllBetweenAndSortedBy(int offset, int limit, Map<String, Boolean> sortOrders, User currentUser);
+    Integer countLoadable(User currentUser);
+
+    List<T> findAllBetweenAndSortedByAndOwnedBy(int offset, int limit, Map<String, Boolean> sortOrders,
+                    User currentUser);
 }

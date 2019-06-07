@@ -49,7 +49,7 @@ public class User extends AbstractEntity
     @Column(updatable = false)
     private OffsetDateTime creationDate;
 
-//    @NotBlank
+    //    @NotBlank // Code sent to user by email for account activation.
 //    private String activationCode;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -10,7 +10,6 @@ import pl.kpro.pastery.backend.data.Role;
 import pl.kpro.pastery.backend.data.entity.User;
 import pl.kpro.pastery.backend.data.repositories.UserRepository;
 import pl.kpro.pastery.backend.error.UserAlreadyExistsException;
-import pl.kpro.pastery.backend.error.UserNotFoundException;
 import pl.kpro.pastery.ui.data.dtos.UserDto;
 
 import java.util.Optional;
@@ -55,7 +54,7 @@ public class UserService implements FilterableCrudService<User>
 //            else
 //            {
 //                user.generateActivationCode();
-//
+    //                //TODO: and send activation code by email
 //            }
 //        }
 //    }
